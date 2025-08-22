@@ -14,6 +14,7 @@ import Param from "./components/Param";
 import Courses from "./components/Courses";
 import Test from "./components/Test";
 import Pricing from "./components/Pricing";
+import ReactHookForm from "./components/ReactHookForm";
 
 const router = createBrowserRouter(
   // ALL THE ROUTES ARE IN THE FROM OF ARRAY
@@ -74,6 +75,18 @@ const App = () => {
     setCount(count + 1);
   }
 
+  function handleuseeffect(){
+    alert("I am useEffect Hook")
+  }
+
+  function handlemouse(){
+    alert("i hovered on the para")
+  }
+
+  function handleinput(){
+    alert("i am input field")
+  }
+
   const [name, setName] = useState();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -105,6 +118,25 @@ const App = () => {
       <div>
         {isLoggedIn ? <Logout /> : <Login />} {/* Ternary opr */}
       </div>
+
+      <button
+      onClick={handleuseeffect}
+      className="bg-blue-800 mx-auto items-center flex justify-center text-2xl font-semibold hover:bg-blue-500 text-white px-4 py-2 rounded-3xl border-1">
+        Click me I am  useEffect
+      </button>
+
+      <p onMouseOver={handlemouse}
+      className="text-center text-xl font-semibold">
+        I am Hovering on this paragraph.
+      </p>
+
+      <form className="flex justify-center items-center my-4">
+        <input type="text" onChange={handleinput} 
+        className="border-1 border-black py-12 px-2 flex justify-center items-center"/>
+      </form>
+
+      <ReactHookForm />
+
     </div>
   );
 };
