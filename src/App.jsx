@@ -15,6 +15,8 @@ import Courses from "./components/Courses";
 import Test from "./components/Test";
 import Pricing from "./components/Pricing";
 import ReactHookForm from "./components/ReactHookForm";
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment, incrementByAmount, reset } from "./features/counter/Counter";
 
 const router = createBrowserRouter(
   // ALL THE ROUTES ARE IN THE FROM OF ARRAY
@@ -71,6 +73,8 @@ const router = createBrowserRouter(
 const App = () => {
   const [count, setCount] = useState(0);
 
+  const [amount, setAmount] = useState(0);
+
   function handleClick() {
     setCount(count + 1);
   }
@@ -85,6 +89,25 @@ const App = () => {
 
   function handleinput(){
     alert("i am input field")
+  }
+
+  const track = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  function handleIncrementClick() {
+    dispatch(increment());
+  }
+
+  function handleDecrementClick() {
+    dispatch(decrement());
+  }
+
+  function handleResetClick(){
+    dispatch(reset());
+  }
+
+  function handleIncAmountClick(){
+    dispatch(incrementByAmount(Number(amount)));
   }
 
   const [name, setName] = useState();
@@ -136,6 +159,39 @@ const App = () => {
       </form>
 
       <ReactHookForm />
+
+      <div className="flex flex-col justify-center items-center">
+        <button
+        className="border-1 px-6 py-2 bg-green-600 text-white rounded-lg my-2"
+        onClick={handleIncrementClick}>
+          Increment
+        </button>
+        <p className="text-2xl font-semibold my-2">
+          Count: {track}
+        </p>
+        <button 
+        className="border-1 px-6 py-2 bg-green-600 text-white rounded-lg my-2"
+        onClick={handleDecrementClick}>
+          Decrement
+        </button>
+        <button 
+        className="border-1 px-6 py-2 bg-green-600 text-white rounded-lg my-2"
+        onClick={handleResetClick}>
+          Reset
+        </button>
+
+        <input type="Number"
+        className="border-1 border-black px-2 py-1 mb-12"
+        value={amount}
+        placeholder="Enter Amount"
+        onChange={(e) => setAmount(e.target.value)}
+        />
+        <button 
+        className="border-1 px-6 py-2 bg-green-600 text-white rounded-lg my-2"
+        onClick={handleIncAmountClick}>
+          Inc By Amount
+        </button>
+      </div>
 
     </div>
   );
